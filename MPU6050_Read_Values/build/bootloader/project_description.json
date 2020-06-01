@@ -1,0 +1,20 @@
+{
+    "project_name":       "bootloader",
+    "project_path":       "/home/aman/esp/esp-idf/components/bootloader/subproject",
+    "build_dir":          "/home/aman/Desktop/Air-Mouse/MPU6050_Read_Values/build/bootloader",
+    "config_file":        "/home/aman/Desktop/Air-Mouse/MPU6050_Read_Values/sdkconfig",
+    "config_defaults":    "",
+    "app_elf":            "bootloader.elf",
+    "app_bin":            "bootloader.bin",
+    "git_revision":       "v4.1-dev-815-ga45e99853-dirty",
+    "target":             "esp32",
+    "phy_data_partition": "",
+    "monitor_baud" :      "115200",
+    "monitor_toolprefix": "xtensa-esp32-elf-",
+    "config_environment" : {
+        "COMPONENT_KCONFIGS" : "/home/aman/esp/esp-idf/components/efuse/Kconfig;/home/aman/esp/esp-idf/components/esp32/Kconfig;/home/aman/esp/esp-idf/components/esp_common/Kconfig;/home/aman/esp/esp-idf/components/freertos/Kconfig;/home/aman/esp/esp-idf/components/log/Kconfig;/home/aman/esp/esp-idf/components/spi_flash/Kconfig",
+        "COMPONENT_KCONFIGS_PROJBUILD" : "/home/aman/esp/esp-idf/components/bootloader/Kconfig.projbuild;/home/aman/esp/esp-idf/components/esptool_py/Kconfig.projbuild;/home/aman/esp/esp-idf/components/partition_table/Kconfig.projbuild"
+    },
+    "build_components" : [ "bootloader", "bootloader_support", "efuse", "esp32", "esp_common", "esp_rom", "esptool_py", "freertos", "log", "main", "micro-ecc", "partition_table", "soc", "spi_flash", "xtensa", "" ],
+    "build_component_paths" : [ "/home/aman/esp/esp-idf/components/bootloader", "/home/aman/esp/esp-idf/components/bootloader_support", "/home/aman/esp/esp-idf/components/efuse", "/home/aman/esp/esp-idf/components/esp32", "/home/aman/esp/esp-idf/components/esp_common", "/home/aman/esp/esp-idf/components/esp_rom", "/home/aman/esp/esp-idf/components/esptool_py", "/home/aman/esp/esp-idf/components/freertos", "/home/aman/esp/esp-idf/components/log", "/home/aman/esp/esp-idf/components/bootloader/subproject/main", "/home/aman/esp/esp-idf/components/bootloader/subproject/components/micro-ecc", "/home/aman/esp/esp-idf/components/partition_table", "/home/aman/esp/esp-idf/components/soc", "/home/aman/esp/esp-idf/components/spi_flash", "/home/aman/esp/esp-idf/components/xtensa", "" ]
+}
