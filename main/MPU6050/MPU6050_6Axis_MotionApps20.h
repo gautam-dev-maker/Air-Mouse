@@ -525,9 +525,9 @@ uint8_t MPU6050::dmpInitialize() {
             for (j = 0; j < 4 || j < dmpUpdate[2] + 3; j++, pos++) dmpUpdate[j] = pgm_read_byte(&dmpUpdates[pos]);
             writeMemoryBlock(dmpUpdate + 3, dmpUpdate[2], dmpUpdate[0], dmpUpdate[1]);
 
-            DEBUG_PRINTLN(F("DMP is good to go! Finally."));
+            DEBUG_PRINTLN(F("DMP is good to go.Jai SRA"));
 
-            DEBUG_PRINTLN(F("Disabling DMP (you turn it on later)..."));
+            DEBUG_PRINTLN(F("Disabling DMP (go)..."));
             setDMPEnabled(false);
 
             DEBUG_PRINTLN(F("Setting up internal 42-byte (default) DMP packet buffer..."));

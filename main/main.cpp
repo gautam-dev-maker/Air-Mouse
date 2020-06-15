@@ -15,15 +15,18 @@
 #include "ble_hid/hal_ble.h"
 #include "esp_gap_ble_api.h"
 #include "driver/gpio.h"
-#include "driver/uart.h"
-// #include "keyboard.h"
+#include "driver/touch_pad.h"
 #include "mpu6050.h"
 #include "MPU6050_6Axis_MotionApps20.h"
 
 /** mouse speed */
 #define MOUSE_SPEED 15
 #define MAX_CMDLEN 100
-
+//Capacitance Touch
+#define TOUCH_PAD_NO_CHANGE (-1)
+#define TOUCH_THRESH_NO_USE (0)
+#define TOUCH_FILTER_MODE_EN (1)
+#define TOUCHPAD_FILTER_TOUCH_PERIOD (10)
 
 //MPU Pins
 #define PIN_SDA 21
@@ -146,6 +149,75 @@ void mpu_poll(void *pvParameter)
 
 	vTaskDelete(NULL);
 }
+//Capacitance Touch
+uint16_t touch_value_mlb,touch_value_mrb;
+uint16_t touch_filter_value_mlb,touch_filter_value_mrb;
+static void tp_read_task(void *pvParameter)
+{
+	
+	while (1)
+	{
+		#if TOUCH_FILTER_MODE_EN
+					touch_pad_read_raw_data((touch_pad_t)0,&touch_value_mlb);
+					touch_pad_read_raw_data((touch_pad_t)2,&touch_value_mrb);
+					touch_pad_read_filtered((touch_pad_t)0,&touch_filter_value_mlb);
+					touch_pad_read_filtered((touch_pad_t)2,&touch_filter_value_mrb);
+		#endif
+		vTaskDelay(25 / portTICK_PERIOD_MS);
+
+	}
+	
+	
+}
+
+static void tp_read_touch_pad_init(void)
+{
+		touch_pad_config((touch_pad_t)0,TOUCH_THRESH_NO_USE);
+		touch_pad_config((touch_pad_t)2,TOUCH_THRESH_NO_USE);
+	
+}
+//buttons
+void button_poll(void *pvParameter)
+{
+	hid_cmd_t mouseCmd;
+	
+	bool mlb = false, mrb = false;
+
+	while (1)
+	{
+		if (touch_filter_value_mlb<300 && !mlb)
+		{
+			ESP_LOGI("MLB","click"); //for left Button
+			mouseCmd.cmd[0] = 0x16;
+			xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
+			mlb = true;
+		}
+		else if (touch_filter_value_mlb>350 && mlb)
+		{
+			ESP_LOGI("MLB","release");
+			mouseCmd.cmd[0] = 0x19;
+			xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
+			mlb = false;
+		}
+
+		if (touch_filter_value_mrb<300 && !mrb)
+		{
+			ESP_LOGI("MRB","klik"); //for Right Button
+			mouseCmd.cmd[0] = 0x17;
+			xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
+			mrb = true;
+		}
+		else if (touch_filter_value_mrb>350 && mrb)
+		{
+			// ESP_LOGI("MRB","release");
+			mouseCmd.cmd[0] = 0x1A;
+			xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
+			mrb = false;
+		}
+		vTaskDelay(25 / portTICK_PERIOD_MS);
+	}
+	vTaskDelete(NULL);
+}
 
 
 void task_initI2C(void *ignore) {
@@ -199,12 +271,20 @@ extern "C" void app_main()
     
     esp_log_level_set("*", ESP_LOG_DEBUG); 
 
+	touch_pad_init();
+	touch_pad_set_voltage(TOUCH_HVOLT_2V7, TOUCH_LVOLT_0V5,TOUCH_HVOLT_ATTEN_1V);
+	tp_read_touch_pad_init();
+	#if TOUCH_FILTER_MODE_EN
+			touch_pad_filter_start(TOUCHPAD_FILTER_TOUCH_PERIOD);
+	#endif
   
-    // now start the tasks for processing UART input and indicator LED  
+    // now start the tasks for processing input and indicator LED  
 	xTaskCreate(&task_initI2C, "mpu_init", 2048, NULL, configMAX_PRIORITIES, NULL);
-    
+    xTaskCreate(&button_poll,"button_loop",4096,NULL, configMAX_PRIORITIES,NULL);
     xTaskCreate(&blink_task, "blink", 4096, NULL, configMAX_PRIORITIES, NULL);
+	xTaskCreate(&tp_read_task, "tp_read_task", 2048, NULL, configMAX_PRIORITIES, NULL);
     vTaskDelay(1000/portTICK_PERIOD_MS);
+	
 	xTaskCreate(&mpu_poll, "mpu_loop", 8192, NULL, configMAX_PRIORITIES, NULL);
 
 }
