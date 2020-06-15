@@ -20,10 +20,10 @@
 #include "mpu6050.h"
 #include "MPU6050_6Axis_MotionApps20.h"
 
-/** demo mouse speed */
+/** mouse speed */
 #define MOUSE_SPEED 15
 #define MAX_CMDLEN 100
-#define CONSOLE_UART_TAG "CONSOLE_UART"
+
 
 //MPU Pins
 #define PIN_SDA 21
@@ -74,165 +74,6 @@ void blink_task(void *pvParameter)
     }
 }
 
-void uart_console(void *pvParameters)
-{
-    char character;
-	hid_cmd_t mouseCmd;
-	hid_cmd_t keyboardCmd;
-	static uint8_t absMouseReport[HID_ABSMOUSE_IN_RPT_LEN];
-    
-    //Install UART driver, and get the queue.
-    uart_driver_install(CONSOLE_UART_NUM, UART_FIFO_LEN * 2, UART_FIFO_LEN * 2, 0, NULL, 0);
-
-    ESP_LOGI("UART","console UART processing task started");
-    
-    while(1)
-    {
-        // read single byte
-        uart_read_bytes(CONSOLE_UART_NUM, (uint8_t*) &character, 1, portMAX_DELAY);
-		// uart_parse_command(character, &cmdBuffer);	      	
-
-		if(halBLEIsConnected() == 0) {
-			ESP_LOGI(CONSOLE_UART_TAG,"Not connected, ignoring '%c'", character);
-		} else {
-			//Do not send anything if queues are uninitialized
-			if(hid_ble == NULL)
-			{
-				ESP_LOGE(CONSOLE_UART_TAG,"queues not initialized");
-				continue;
-			}
-			switch (character){
-				case 'a':
-					mouseCmd.cmd[0] = 0x10;
-					mouseCmd.cmd[1] = -MOUSE_SPEED;
-					xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
-					ESP_LOGI(CONSOLE_UART_TAG,"mouse: a");
-					break;
-				case 's':
-					mouseCmd.cmd[0] = 0x11;
-					mouseCmd.cmd[1] = MOUSE_SPEED;
-					xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
-					ESP_LOGI(CONSOLE_UART_TAG,"mouse: s");
-					break;
-				case 'd':
-					mouseCmd.cmd[0] = 0x10;
-					mouseCmd.cmd[1] = MOUSE_SPEED;
-					xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
-					ESP_LOGI(CONSOLE_UART_TAG,"mouse: d");
-					break;
-				case 'w':
-					mouseCmd.cmd[0] = 0x11;
-					mouseCmd.cmd[1] = -MOUSE_SPEED;
-					xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
-					ESP_LOGI(CONSOLE_UART_TAG,"mouse: w");
-					break;
-				case 'l':
-					mouseCmd.cmd[0] = 0x13;
-					xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
-					ESP_LOGI(CONSOLE_UART_TAG,"mouse: l");
-					break;
-				case 'r':
-					mouseCmd.cmd[0] = 0x14;
-					xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
-					ESP_LOGI(CONSOLE_UART_TAG,"mouse: r");
-					break;
-				case 'q':
-					ESP_LOGI(CONSOLE_UART_TAG,"received q: sending key y for test purposes");
-					keyboardCmd.cmd[0] = 0x20;
-					keyboardCmd.cmd[1] = 28;
-					xQueueSend(hid_ble,(void *)&keyboardCmd, (TickType_t) 0);
-					break;
-				case '0':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: click left");
-					absMouseReport[0] = 0x01;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					absMouseReport[0] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '1':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X left, Y bottom");
-					absMouseReport[1] = absMouseReport[2] = 0x00;
-					absMouseReport[3] = 0x7F;
-					absMouseReport[4] = 0xFF;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '2':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X center, Y bottom");
-					absMouseReport[1] = 0x40;
-					absMouseReport[2] = 0x00;
-					absMouseReport[3] = 0x7F;
-					absMouseReport[4] = 0xFF;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '3':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X right, Y bottom");
-					absMouseReport[1] = 0x7F;
-					absMouseReport[2] = 0xFF;
-					absMouseReport[3] = 0x7F;
-					absMouseReport[4] = 0xFF;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '4':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X left, Y center");
-					absMouseReport[1] = absMouseReport[2] = 0x00;
-					absMouseReport[3] = 0x40;
-					absMouseReport[4] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '5':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X center, Y center");
-					absMouseReport[1] = 0x40;
-					absMouseReport[2] = 0x00;
-					absMouseReport[3] = 0x40;
-					absMouseReport[4] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '6':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X right, Y center");
-					absMouseReport[1] = 0x7F;
-					absMouseReport[2] = 0xFF;
-					absMouseReport[3] = 0x40;
-					absMouseReport[4] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '7':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X left, Y top");
-					absMouseReport[1] = absMouseReport[2] = 0x00;
-					absMouseReport[3] = absMouseReport[4] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '8':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X center, Y top");
-					absMouseReport[1] = 0x40;
-					absMouseReport[2] = 0x00;
-					absMouseReport[3] = absMouseReport[4] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				case '9':
-					ESP_LOGI(CONSOLE_UART_TAG,"abs mouse: X right, Y top");
-					absMouseReport[1] = 0x7F;
-					absMouseReport[2] = 0xFF;
-					absMouseReport[3] = absMouseReport[4] = 0x00;
-					hid_dev_send_report(hidd_le_env.gatt_if, halBLEGetConnID(),
-						HID_RPT_ID_ABSMOUSE_IN, HID_REPORT_TYPE_INPUT, HID_ABSMOUSE_IN_RPT_LEN, absMouseReport);
-					break;
-				default:
-					ESP_LOGI(CONSOLE_UART_TAG,"received: %d",character);
-					break;
-			}
-		}
-    }
-}
 
 void mpu_poll(void *pvParameter)
 {
@@ -361,7 +202,7 @@ extern "C" void app_main()
   
     // now start the tasks for processing UART input and indicator LED  
 	xTaskCreate(&task_initI2C, "mpu_init", 2048, NULL, configMAX_PRIORITIES, NULL);
-    xTaskCreate(&uart_console,  "console", 4096, NULL, configMAX_PRIORITIES, NULL);
+    
     xTaskCreate(&blink_task, "blink", 4096, NULL, configMAX_PRIORITIES, NULL);
     vTaskDelay(1000/portTICK_PERIOD_MS);
 	xTaskCreate(&mpu_poll, "mpu_loop", 8192, NULL, configMAX_PRIORITIES, NULL);
