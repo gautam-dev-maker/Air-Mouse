@@ -1,1 +1,0 @@
-cmd='/usr/bin/cmake;-DSDKCONFIG=/home/aman/Desktop/Air-Mouse/MPU6050_Read_Values/sdkconfig;-DIDF_PATH=/home/aman/esp/esp-idf;-DIDF_TARGET=esp32;-DPYTHON_DEPS_CHECKED=1;-DPYTHON=/home/aman/.espressif/python_env/idf4.1_py2.7_env/bin/python;-DEXTRA_COMPONENT_DIRS=/home/aman/esp/esp-idf/components/bootloader;-DLEGACY_INCLUDE_COMMON_HEADERS=;-GNinja;<SOURCE_DIR><SOURCE_SUBDIR>'
