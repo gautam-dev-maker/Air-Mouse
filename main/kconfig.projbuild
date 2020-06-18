@@ -1,4 +1,4 @@
-menu "Bluetooth Configuration"
+menu "Air-Mouse Bluetooth Configuration"
     config BluetoothName
         string "BluetoothName"
         default "Gaut_Am"
