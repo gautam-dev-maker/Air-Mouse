@@ -136,7 +136,7 @@ static void hidd_event_callback(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *
       if (param->init_finish.state == ESP_HIDD_INIT_OK) {
         //esp_bd_addr_t rand_addr = {0x04,0x11,0x11,0x11,0x11,0x05};
         if(strnlen(dev_name,10) > 0) esp_ble_gap_set_device_name(dev_name);
-        else  esp_ble_gap_set_device_name("Gaut_Am");
+        else  esp_ble_gap_set_device_name(CONFIG_BluetoothName);
         esp_ble_gap_config_adv_data(&hidd_adv_data);
       }
       break;

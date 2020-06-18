@@ -269,6 +269,7 @@
     "BT_SMP_ENABLE": true,
     "BT_SMP_SLAVE_CON_PARAMS_UPD_ENABLE": false,
     "BT_STACK_NO_LOG": false,
+    "BluetoothName": "No_Name",
     "COAP_LOG_DEFAULT_LEVEL": 0,
     "COAP_MBEDTLS_DEBUG": false,
     "COAP_MBEDTLS_PKI": false,

@@ -1602,6 +1602,24 @@
     {
         "children": [
             {
+                "children": [],
+                "depends_on": null,
+                "help": "",
+                "id": "BluetoothName",
+                "name": "BluetoothName",
+                "range": null,
+                "title": "BluetoothName",
+                "type": "string"
+            }
+        ],
+        "depends_on": null,
+        "id": "bluetooth-configuration",
+        "title": "Bluetooth Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
                 "children": [
                     {
                         "children": [],

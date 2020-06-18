@@ -1,0 +1,10 @@
+menu "Bluetooth Configuration"
+    config BluetoothName
+        string "BluetoothName"
+        default "Gaut_Am"
+        help
+            
+
+    
+    
+endmenu

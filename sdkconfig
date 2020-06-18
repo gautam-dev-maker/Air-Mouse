@@ -120,6 +120,12 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
+# Bluetooth Configuration
+#
+CONFIG_BluetoothName="SRA"
+# end of Bluetooth Configuration
+
+#
 # Compiler options
 #
 CONFIG_COMPILER_OPTIMIZATION_DEFAULT=y

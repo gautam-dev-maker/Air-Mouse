@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := esp32_mouse_keyboard
+PROJECT_NAME := Air-Mouse
 
 COMPONENT_ADD_INCLUDEDIRS := components/include	\
 								
