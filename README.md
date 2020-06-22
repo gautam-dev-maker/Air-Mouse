@@ -1,10 +1,10 @@
 # Air-Mouse
 ===========
-Esp32 Air-Mouse-Moves mouse cursor,Using MPU6050(6-axis Accelerometer,Gyroscope)
-*Moves mouse cursor from the values generated using DMP(Digital Motion Processing) embedded in MPU6050
-*Uses Yaw,Pitch,Roll values generated using DMP to get the data to move the cursor
-*Completely bluetooth(BLE) supported
-*Right and Left Click is made using capacitive touch
+Esp32 Air-Mouse-Moves mouse cursor,Using MPU6050(6-axis Accelerometer,Gyroscope).
+*Moves mouse cursor from the values generated using DMP(Digital Motion Processing) embedded in MPU6050.
+*Uses Yaw,Pitch,Roll values generated using DMP to get the data to move the cursor.
+*Completely bluetooth(BLE) supported.
+*Right and Left Click is made using capacitive touch.
 
 
 ### Prerequisites
