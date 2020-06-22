@@ -1,0 +1,12 @@
+menu "Air-Mouse Bluetooth Configuration"
+    config BluetoothName
+        string "BluetoothName"
+        default "Gaut_Am"
+        help
+    config GpioPin
+        gpio_num_t "gpiopin"        
+        default (gpio_num_t)21
+                     
+    
+    
+endmenu
