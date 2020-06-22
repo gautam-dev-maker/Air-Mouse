@@ -1,5 +1,11 @@
 # Air-Mouse
-It is the program for Air Gesture Mouse using mpu6050 and esp32 in esp-idf
+===========
+Esp32 Air-Mouse : Moves mouse cursor,Using MPU6050(6-axis Accelerometer,Gyroscope)
+*Moves mouse cursor from the values generated using DMP(Digital Motion Processing) embedded in MPU6050
+*Uses Yaw,Pitch,Roll values generated using DMP to get the data to move the cursor
+*Completely bluetooth(BLE) supported
+*Right and Left Click is made using capacitive touch
+
 
 ### Prerequisites
 Install ESP-IDF : https://github.com/espressif/esp-idf
