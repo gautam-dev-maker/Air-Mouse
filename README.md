@@ -31,3 +31,8 @@ Flash
 idf.py -p (PORT) flash monitor
 
 ```
+### Configuration
+
+```
+idf.py menuconfig
+```
