@@ -6,6 +6,11 @@ Esp32 Air-Mouse - Moves mouse cursor,Using MPU6050(6-axis Accelerometer,Gyroscop
 * Completely bluetooth(BLE) supported.
 * Right and Left Click is made using capacitive touch.
 
+## Credits and many thanks to 
+* @VedantParanjape
+* Jeff Rowberg for the MPU6050 library for esp-idf :
+  https://github.com/jrowberg/i2cdevlib/tree/master/ESP32_ESP-IDF 
+
 
 ### Prerequisites
 Install ESP-IDF : https://github.com/espressif/esp-idf
