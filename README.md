@@ -38,4 +38,7 @@ idf.py menuconfig
 ```
 * `Example Connection Configuration`
   * `Bluetooth Name` - Set Bluetooth Name
+* `MPU6050 Configuration
+  * `SDA Pin No.` - Set SDA Pin No.
+  * `CLK Pin No.` - Set CLK Pin No.
   
