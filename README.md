@@ -36,3 +36,6 @@ idf.py -p (PORT) flash monitor
 ```
 idf.py menuconfig
 ```
+* `Example Connection Configuration`
+  * `Bluetooth Name` - Set Bluetooth Name
+  
