@@ -29,8 +29,8 @@
 #define TOUCHPAD_FILTER_TOUCH_PERIOD (10)
 
 //MPU Pins
-#define PIN_SDA 21
-#define PIN_CLK 22
+#define PIN_SDA CONFIG_SDAPin
+#define PIN_CLK CONFIG_CLKPin
 
 
 // MPU vars

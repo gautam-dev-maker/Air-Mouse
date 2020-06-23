@@ -1,0 +1,11 @@
+menu "Air-Mouse Bluetooth Configuration"
+    config BluetoothName
+        string "BluetoothName"
+        default "Gaut_Am"
+    config SDAPin
+        int "SDA Pin"
+        default 21
+    config CLKPin
+        int "CLK Pin"
+        default 22    
+endmenu
