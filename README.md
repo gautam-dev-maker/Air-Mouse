@@ -49,11 +49,8 @@ The Technologies used for this project are
  
 
 
-## Credits and many thanks to 
-* @VedantParanjape
-* Jeff Rowberg for the MPU6050 library for esp-idf :
-  https://github.com/jrowberg/i2cdevlib/tree/master/ESP32_ESP-IDF 
 
+## Getting Started
 
 ### Prerequisites
 Install ESP-IDF : https://github.com/espressif/esp-idf
@@ -65,6 +62,8 @@ git clone https://github.com/n1rml/esp32_airmouse.git esp32_airmouse
 
 cd esp32_airmouse
 ```
+## Usage
+
 Build
 ```
 idf.py build
@@ -85,4 +84,16 @@ idf.py menuconfig
 * `MPU6050 Configuration
   * `SDA Pin No.` - Set SDA Pin No.
   * `CLK Pin No.` - Set CLK Pin No.
+  
+## Results and Demo
+The use of Right and Left Capacitive touch pins has been demonstrated in the following videos
+ [Right/left click](https://drive.google.com/file/d/1xQOD4461v5NgVFQ_UL73FERE7jTVrADS/view?usp=sharing)
+  
+  
+## Credits and many thanks to 
+* @VedantParanjape
+* Jeff Rowberg for the MPU6050 library for esp-idf :
+  https://github.com/jrowberg/i2cdevlib/tree/master/ESP32_ESP-IDF   
+  
+  
   
