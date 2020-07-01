@@ -1,10 +1,53 @@
 # Air-Mouse
 
-Esp32 Air-Mouse - Moves mouse cursor,Using MPU6050(6-axis Accelerometer,Gyroscope).
-* Moves mouse cursor from the values generated using DMP(Digital Motion Processing) embedded in MPU6050.
-* Uses Yaw,Pitch,Roll values generated using DMP to get the data to move the cursor.
-* Completely bluetooth(BLE) supported.
-* Right and Left Click is made using capacitive touch.
+Air-Mouse - Moves mouse cursor,Using ESP-32 & MPU6050(6-axis Accelerometer & Gyroscope) in 3D space with Bluetooth and Buttons support.
+
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Tech Stack](#tech-stack)
+  * [File Structure](#file-structure)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Results and Demo](#results-and-demo)
+* [Future Work](#future-work)
+* [Troubleshooting](#troubleshooting)
+* [Contributors](#contributors)
+* [Acknowledgements and Resources](#acknowledgements-and-resources)
+* [License](#license)
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+* The Aim of the Project is to make a Mouse using the data fusion DMP(Digital Motion Processing) of MPU_6050 and ESP32 with Bluetooth support to actually make it    easier for the user to move pointer in any position they want.
+* The Support for Right and Left click is also established using Capacitive touch pins of ESP32.
+   
+   [Air-Mouse](https://drive.google.com/file/d/1ngPo_A47NI5bO16B8QKe7McMDUR_fAav/view?usp=sharing)
+
+### Tech Stack
+The Technologies used for this project are
+* [FreeRTOS](https://www.freertos.org/openrtos.html)
+* [CMake](https://cmake.org)
+
+### File Structure
+    .
+    ├── Components              # Contains files of specific library of functions or Hardware used
+    │    ├──I2Cdev              # Library for I2C communication
+    │    ├──MPU6050             # Library for MPU6050 sensor
+    │    ├──CMakeLists.txt      # contains commands to include the given component in a esp-idf 
+    ├── docs                    # Documentation files 
+    │   ├── report.pdf          # Project report
+    │   └── results             # Folder containing screenshots, gifs, videos of results
+    ├── main                    # Source files (alternatively `lib` or `app`)
+    │   ├──main.c               # Main Source code to be executed
+    │   ├──kconfig.projbuild    # defines the entries of the menu for configuration
+    │   ├──CMakeLists.txt       # contains commands to include the bluetooth library and main.c in esp-idf
+    ├── CmakeLists.txt          # contains commands to include Components and main folder while executing
+    ├── LICENSE
+    └── README.md 
+ 
+
 
 ## Credits and many thanks to 
 * @VedantParanjape
