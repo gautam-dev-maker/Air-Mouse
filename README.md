@@ -12,7 +12,6 @@ Air-Mouse - Moves mouse cursor,Using ESP-32 & MPU6050(6-axis Accelerometer & Gyr
   * [Installation](#installation)
 * [Usage](#usage)
 * [Results and Demo](#results-and-demo)
-* [Future Work](#future-work)
 * [Troubleshooting](#troubleshooting)
 * [Contributors](#contributors)
 * [Acknowledgements and Resources](#acknowledgements-and-resources)
@@ -87,13 +86,37 @@ idf.py menuconfig
   
 ## Results and Demo
 The use of Right and Left Capacitive touch pins has been demonstrated in the following videos
- [Right/left click](https://drive.google.com/file/d/1xQOD4461v5NgVFQ_UL73FERE7jTVrADS/view?usp=sharing)
-  
-  
-## Credits and many thanks to 
-* @VedantParanjape
+
+ [Right/left buttons](https://drive.google.com/file/d/1xQOD4461v5NgVFQ_UL73FERE7jTVrADS/view?usp=sharing)
+ 
+ ## Troubleshooting
+ While Configuring for the first time if Bluetooth is not working then ,go to terminal
+ 
+```
+idf.py menuconfig
+```
+Then go to components/bluetooth and enable bluetooth
+Press ctrl+s to save the configuration
+then
+```
+idf.py build
+```
+and it should work.
+## Contributors
+* [Aman Chhaparia](https://github.com/amanchhaparia)
+* [Gautam Agrawal](https://github.com/gautam-dev-maker)
+
+## Acknowledgements and Resources
+* [SRA VJTI](http://sra.vjti.info/) Eklavya 2020 
+* Special thanks to [Vedant Paranjape](https://github.com/VedantParanjape)
 * Jeff Rowberg for the MPU6050 library for esp-idf :
   https://github.com/jrowberg/i2cdevlib/tree/master/ESP32_ESP-IDF   
+* https://github.com/nkolban/esp32-snippets
+* https://github.com/VedantParanjape/idf-notes-sra
+
+  
+## License
+The [License](https://github.com/gautam-dev-maker/Air-Mouse/blob/master/LICENSE) Used for this Project.
   
   
   
