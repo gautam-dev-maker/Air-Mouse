@@ -10,6 +10,7 @@ Air-Mouse - Moves mouse cursor,Using ESP-32 & MPU6050(6-axis Accelerometer & Gyr
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+  * [Configuration](#configuration)
 * [Usage](#usage)
 * [Results and Demo](#results-and-demo)
 * [Troubleshooting](#troubleshooting)
@@ -22,7 +23,7 @@ Air-Mouse - Moves mouse cursor,Using ESP-32 & MPU6050(6-axis Accelerometer & Gyr
 * The Aim of the Project is to make a Mouse using the data fusion DMP(Digital Motion Processing) of MPU_6050 and ESP32 with Bluetooth support to actually make it    easier for the user to move pointer in any position they want.
 * The Support for Right and Left click is also established using Capacitive touch pins of ESP32.
    
-   [Air-Mouse](https://drive.google.com/file/d/1ngPo_A47NI5bO16B8QKe7McMDUR_fAav/view?usp=sharing)
+   [Air-Mouse](https://github.com/gautam-dev-maker/Air-Mouse/blob/master/docs/results/Air-Mouse.png)
 
 ### Tech Stack
 The Technologies used for this project are
@@ -83,11 +84,12 @@ idf.py menuconfig
 * `MPU6050 Configuration
   * `SDA Pin No.` - Set SDA Pin No.
   * `CLK Pin No.` - Set CLK Pin No.
+* The default Pin configuration used to connect MPU_6050 with ESP32 in this project is shown [here](https://github.com/gautam-dev-maker/Air-Mouse/blob/master/docs/results/Esp-32%20and%20MPU6050%20pin%20connection.png)  
   
 ## Results and Demo
 The use of Right and Left Capacitive touch pins has been demonstrated in the following videos
 
- [Right/left buttons](https://drive.google.com/file/d/1xQOD4461v5NgVFQ_UL73FERE7jTVrADS/view?usp=sharing)
+ [Right/left buttons](https://github.com/gautam-dev-maker/Air-Mouse/blob/master/docs/results/Right-Left%20click.mp4)
  
  ## Troubleshooting
  While Configuring for the first time if Bluetooth is not working then ,go to terminal
@@ -101,7 +103,6 @@ then
 ```
 idf.py build
 ```
-and it should work.
 ## Contributors
 * [Aman Chhaparia](https://github.com/amanchhaparia)
 * [Gautam Agrawal](https://github.com/gautam-dev-maker)
