@@ -28,7 +28,7 @@ Air-Mouse - Moves mouse cursor,Using ESP-32 & MPU6050(6-axis Accelerometer & Gyr
 ### Tech Stack
 The Technologies used for this project are
 * [FreeRTOS](https://www.freertos.org/openrtos.html)
-* [CMake](https://cmake.org)
+* [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/)
 
 ### File Structure
     .
