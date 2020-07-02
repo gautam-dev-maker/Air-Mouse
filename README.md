@@ -58,9 +58,9 @@ Install ESP-IDF : https://github.com/espressif/esp-idf
 ### Installation
 Clone the project
 ```
+https://github.com/gautam-dev-maker/Air-Mouse.git
 
-
-cd esp32_airmouse
+cd Air-Mouse
 ```
 ## Usage
 
