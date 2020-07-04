@@ -84,7 +84,7 @@ idf.py menuconfig
 * `MPU6050 Configuration
   * `SDA Pin No.` - Set SDA Pin No.
   * `CLK Pin No.` - Set CLK Pin No.
-* The default Pin configuration used to connect MPU_6050 with ESP32 in this project is shown ![](docs/results/Esp-32andmpu6050_pin_connection.png)  
+* The default Pin configuration used to connect MPU_6050 with ESP32 in this project is shown ![](docs/results/Esp-32andmpu6050_pin_connection.png)  ![](docs/results/Air-Mouse_diagram.png)
   
 ## Results and Demo
 The use of Right and Left Capacitive touch pins has been demonstrated in the following videos
