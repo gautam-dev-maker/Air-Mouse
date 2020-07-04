@@ -23,7 +23,7 @@ Air-Mouse - Moves mouse cursor,Using ESP-32 & MPU6050(6-axis Accelerometer & Gyr
 * The Aim of the Project is to make a Mouse using the data fusion DMP(Digital Motion Processing) of MPU_6050 and ESP32 with Bluetooth support to actually make it    easier for the user to move pointer in any position they want.
 * The Support for Right and Left click is also established using Capacitive touch pins of ESP32.
    
-   [Air-Mouse](https://github.com/gautam-dev-maker/Air-Mouse/blob/master/docs/results/Air-Mouse.png)
+   ![](https://github.com/gautam-dev-maker/Air-Mouse/blob/master/docs/results/Air-Mouse.png)
 
 ### Tech Stack
 The Technologies used for this project are
