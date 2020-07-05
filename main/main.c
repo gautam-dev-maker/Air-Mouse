@@ -45,7 +45,7 @@ float yaw = 0.0, pitch = 0.0, roll = 0.0;
 float vertZero = 0, horzZero = 0;
 float vertValue, horzValue;
 
-
+//check if bluetooth is connected
 static config_data_t config;
 QueueHandle_t hid_ble;
 struct cmdBuf{
@@ -77,7 +77,7 @@ void blink_task(void *pvParameter)
     }
 }
 
-
+//move mouse cursor
 void mpu_poll(void *pvParameter)
 {
 	hid_cmd_t mouseCmd;
@@ -150,18 +150,18 @@ void mpu_poll(void *pvParameter)
 	vTaskDelete(NULL);
 }
 //Capacitance Touch
-uint16_t touch_value_mlb,touch_value_mrb;
-uint16_t touch_filter_value_mlb,touch_filter_value_mrb;
+uint16_t touch_value_mlb,touch_value_mrb;                  //for raw values
+uint16_t touch_filter_value_mlb,touch_filter_value_mrb;     //for filterev values
 static void tp_read_task(void *pvParameter)
 {
 	
 	while (1)
 	{
 		#if TOUCH_FILTER_MODE_EN
-					touch_pad_read_raw_data((touch_pad_t)0,&touch_value_mlb);
-					touch_pad_read_raw_data((touch_pad_t)2,&touch_value_mrb);
-					touch_pad_read_filtered((touch_pad_t)0,&touch_filter_value_mlb);
-					touch_pad_read_filtered((touch_pad_t)2,&touch_filter_value_mrb);
+					touch_pad_read_raw_data((touch_pad_t)0,&touch_value_mlb);            //read raw data from touch 0          
+		                        touch_pad_read_raw_data((touch_pad_t)2,&touch_value_mrb);            //read raw datta from touch 2
+					touch_pad_read_filtered((touch_pad_t)0,&touch_filter_value_mlb);     //filters data from touch 0
+					touch_pad_read_filtered((touch_pad_t)2,&touch_filter_value_mrb);     //filters data from touch 2
 		#endif
 		vTaskDelay(25 / portTICK_PERIOD_MS);
 
@@ -185,7 +185,7 @@ void button_poll(void *pvParameter)
 
 	while (1)
 	{
-		if (touch_filter_value_mlb<300 && !mlb)
+		if (touch_filter_value_mlb<300 && !mlb)                                   
 		{
 			ESP_LOGI("MLB","click"); //for left Button
 			mouseCmd.cmd[0] = 0x16;
@@ -194,7 +194,7 @@ void button_poll(void *pvParameter)
 		}
 		else if (touch_filter_value_mlb>350 && mlb)
 		{
-			ESP_LOGI("MLB","release");
+			ESP_LOGI("MLB","release");//for Release button
 			mouseCmd.cmd[0] = 0x19;
 			xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
 			mlb = false;
@@ -209,7 +209,7 @@ void button_poll(void *pvParameter)
 		}
 		else if (touch_filter_value_mrb>350 && mrb)
 		{
-			// ESP_LOGI("MRB","release");
+			// ESP_LOGI("MRB","release");//for Release button
 			mouseCmd.cmd[0] = 0x1A;
 			xQueueSend(hid_ble,(void *)&mouseCmd, (TickType_t) 0);
 			mrb = false;
@@ -278,7 +278,7 @@ extern "C" void app_main()
 	#endif
   
     // now start the tasks for processing input and indicator LED  
-	xTaskCreate(&task_initI2C, "mpu_init", 2048, NULL, configMAX_PRIORITIES, NULL);
+    xTaskCreate(&task_initI2C, "mpu_init", 2048, NULL, configMAX_PRIORITIES, NULL);
     xTaskCreate(&button_poll,"button_loop",4096,NULL, configMAX_PRIORITIES,NULL);
     xTaskCreate(&blink_task, "blink", 4096, NULL, configMAX_PRIORITIES, NULL);
 	xTaskCreate(&tp_read_task, "tp_read_task", 2048, NULL, configMAX_PRIORITIES, NULL);
